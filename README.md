@@ -1,27 +1,26 @@
 # Solutions to *The Arithmetic of Elliptic Curves*
 
-This repository contains my in-depth notes and worked solutions to the textbook  
-**_The Arithmetic of Elliptic Curves_** by Joseph H. Silverman.
+This repository contains expanded notes and fully worked solutions to exercises from  
+**_The Arithmetic of Elliptic Curves_** by Joseph H. Silverman (2nd Edition).
 
-## ✨ Project Goals
+## ✨ Features
 
-- Expand and annotate **key theorems**, **remarks**, and **examples**
-- Provide **rigorous proofs** and **commentary** to clarify core concepts
-- Write **fully worked solutions** to exercises from every chapter
-- Organize all material with LaTeX, using a consistent and navigable format
+- Expanded and clarified **theorems**, **proofs**, and **remarks**
+- Fully worked **solutions** to exercises
+- Clean LaTeX formatting for readability and reuse
+- Organized by chapter, with internal referencing and optional bibliography support
 
 ## 📁 Files
 
-- `main.tex` — The master LaTeX file with all chapter content
-- `references.bib` — Bibliography for citing external references
-- *(Future additions:)* custom preamble, chapter-based macros, and PDF build instructions
+- `main.tex` – The primary LaTeX file (includes all chapters and content)
+- `references.bib` – Bibliography file (optional, used for citing references)
 
-## 🛠 Compilation
+## 🛠 Compilation Instructions
 
-To build the PDF:
+To compile locally:
 
 ```bash
 pdflatex main.tex
-bibtex main
+bibtex main       # Skip if you don't use citations
 pdflatex main.tex
 pdflatex main.tex
