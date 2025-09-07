@@ -114,7 +114,11 @@
   \end{customex}
 }
 
+\newcommand{\leg}[2]{\genfrac{(}{)}{}{}{#1}{#2}} % Legendre
+\newcommand{\jac}[2]{\genfrac{(}{)}{}{}{#1}{#2}} % Jacobi (same shape)
+\newcommand{\kron}[2]{\genfrac{(}{)}{}{}{#1}{#2}} % Kronecker (same shape)
 
+% usage: $\leg{a}{p}$, $\jac{a}{n}$, $\kron{a}{m}$
 
 \let\divsymb\div
 \renewcommand{\div}{\mathop{\mathrm{div}}}
@@ -140,9 +144,12 @@
 \newcommand{\HP}{\mathbb{HP}}
 \let\Paragraph\P
 \renewcommand{\P}{\mathbb{P}}
+\newcommand{\eps}{\varepsilon}
 \newcommand{\B}{\mathbb{B}}
 \newcommand{\calC}{\mathcal{C}}
 \newcommand{\calO}{\mathcal{O}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calR}{\mathcal{R}}
 \newcommand{\fA}{\mathscr{A}}
 \newcommand{\fB}{\mathscr{B}}
 \newcommand{\fC}{\mathscr{C}}
@@ -209,6 +216,7 @@
 \DeclareMathOperator{\res}{\mathrm{res}}
 \DeclareMathOperator{\pre}{\mathrm{pre}}
 \DeclareMathOperator{\ad}{\mathrm{ad}}
+\DeclareMathOperator{\op}{\mathrm{op}}
 \DeclareMathOperator{\Ind}{\mathrm{Ind}}
 \DeclareMathOperator{\Res}{\mathrm{Res}}
 \DeclareMathOperator{\End}{\mathrm{End}}
@@ -231,6 +239,7 @@
 \DeclareMathOperator{\frkg}{\mathfrak{g}}
 \DeclareMathOperator{\frkh}{\mathfrak{h}}
 \DeclareMathOperator{\Stab}{\mathrm{Stab}}
+\DeclareMathOperator{\Proj}{\mathrm{Proj}}
 \DeclareMathOperator{\im}{\mathrm{im}}
 \DeclareMathOperator{\coim}{\mathrm{coim}}
 \DeclareMathOperator{\cok}{\mathrm{cok}}
@@ -248,6 +257,7 @@
 \DeclareMathOperator{\Int}{\mathrm{Int}}
 \DeclareMathOperator{\Homeo}{\mathrm{Homeo}}
 \DeclareMathOperator{\Div}{\mathrm{Div}}
+\DeclareMathOperator{\Pic}{\mathrm{Pic}}
 \DeclareMathOperator{\Char}{\mathrm{char}}
 \DeclareMathOperator{\nullity}{\mathrm{nullity}}
 \DeclareMathOperator{\Aut}{\mathrm{Aut}}
@@ -264,6 +274,7 @@
 \DeclareMathOperator{\sh}{sh}
 \DeclareMathOperator{\ev}{ev}
 \DeclareMathOperator{\calL}{\mathcal{L}}
+\DeclareMathOperator{\calK}{\mathcal{K}}
 \DeclareMathOperator{\Spec}{\mathrm{Spec}}
 \DeclareMathOperator{\Ext}{\mathrm{Ext}}
 \DeclareMathOperator{\Tor}{\mathrm{Tor}}
@@ -284,6 +295,8 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem*{remark}{Remark}
 \newtheorem*{lemma*}{Lemma}
+\newtheorem*{theorem*}{Theorem}      
+\newtheorem*{corollary*}{Corollary}  
 \renewcommand{\qedsymbol}{$\blacksquare$}
 
 \renewcommand{\le}{\leqslant}
@@ -318,6 +331,268 @@ This document contains worked examples, detailed solutions to selected exercises
 
 \topic{Exercises}
 
+\tocexercise{Exercise 4}{
+Let $V/\Q$ be the variety
+\[
+V: 5X^2+6XY+2Y^2 = 2YZ + Z^2.
+\]
+Prove that $V(\Q)=\emptyset.$
+}
+
+\begin{proof}
+    First, we do a linear change of variables, $X\mapsto X-\frac{3}{5}Y$, which takes $5X^2+6XY+2Y^2$ to $5X^2+\frac{1}{5}Y^2$, so in this new coordinate system 
+    \[
+    V: 5X^2 + \frac{1}{5}Y^2 - 2YZ - Z^2 = 0.
+    \]
+    Now we apply the change of variables $Y\mapsto 5Y$, giving
+    \[
+    V: 5X^2 + 5Y^2-10YZ-Z^2 = 0.
+    \]
+    Lastly, we do the change of variables $Z\mapsto Z-5Y$, which takes $5Y^2-10YZ-Z^2$ to $30Y^2-Z^2$, so in this coordinate system 
+    \[
+    V: 5X^2+30Y^2=Z^2.
+    \]
+    Let $H:Z=0$ be a hyperplane in $\P^2.$ Notice that $H\cap V(\Q) = \emptyset$ because if $Z=0$, as $5X^2+30Y^2=Z^2$, it would follow that $X=Y=0.$ Thus it suffices to show that $V(\Q)\subseteq H.$ By taking any solution to have integral coordinates, our claim will follow if we can show that if $a,b,c$ are integers such that $5a^2+30b^2 = c^2$, then $a=b=c=0.$ Now suppose we had such a triple $(a,b,c)$, not all zero. We may assume that $\gcd(a,b,c)=1$, else we could obtain a contradiction by infinite descent. Considering the equation modulo $5$, we get that $5\mid c$, so relabeling $c\to \frac{c}{5}$ and dividing by $5$, we have
+    \[
+    a^2+6b^2 = 5c^2.
+    \]
+    Taking this equation modulo $3$, we get
+    \[
+    a^2 \equiv 2c^2 \mod 3
+    \]
+    which implies that $a\equiv c \equiv 0 \mod 3.$ With this, we take the equation $a^2+6b^2=5c^2$ modulo $9$ and get
+    \[
+    6b^2 \equiv 0 \mod 9
+    \]
+    which implies that $b\equiv 0 \mod 3$ as well. This contradicts the assumption that $\gcd(a,b,c)\ne 1$, showing $V(\Q)\subset H$, hence $V(\Q) = V(\Q)\cap H = \emptyset.$ as claimed.
+\end{proof}
+
+\tocexercise{Exercise 10}{
+For each prime $p\ge 3$, let $V_p$ be the variety given by the equation
+\[
+V_p: X^2+Y^2 = pZ^2.
+\] 
+\begin{enumerate}[(a)]
+    \item Prove that $V_p$ is isomorphic over $\Q$ to $\P^1$ iff $p\equiv 1 \mod 4.$
+    \item Prove that for $p\equiv 3 \mod 4$, no two $V_p$'s are isomorphic over $\Q.$
+\end{enumerate}
+}
+First we will prove (a). We will also write $t$ for $[t,1]\in \P^1$ and $\infty$ for $[1,0]$. Most of the proof of (a) is devoted to the derivation of isomorphism and its inverse when $p\equiv 1 \mod 4.$ Thus the length of the proof can be significantly reduced by simply defining two morphisms and verifying that they are inverses.
+\begin{proof}
+    Let $\A^2: Z=0.$ We observe that $V_p\setminus \A^2=\{[i, 1, 0], [-i, 1, 0]\}$ because $Z=0$ implies that $X^2+Y^2=0$, so $X=\pm i Y$. We will call the first point $P_+$ and the second $P_-$, and let $P_\perp=[a,b,1]$. Thus we can use affine notation, keeping in mind that we have the two extra points at infinity. We will also take for granted the classical results in number theory that an odd prime can be written as the sum of two squares iff it is congruent to $1\mod 4$ and also that the Legendre symbol $\leg{-1}{p} = 1$ iff $p\equiv 1 \mod 4$.
+
+    For one direction, suppose $p\equiv 1\mod 4$  Then we may write $p=a^2+b^2$ for some integers $a,b$, where clearly $ab\ne 0$.
+    For $p\equiv 1 \mod 4$, we define a map $$\psi: V_p \to \P^1, \quad P\mapsto \begin{cases}
+        [ y-b, x-a], & \text{ if } P=[x,y,1] \text{ and } P\ne P_\perp\\
+        [a, -b], & \text { if } P=P_\perp\\
+        [\mp i, 1], & \text{ if } P=P_\pm.
+        
+    \end{cases}.$$ This map takes a point $P$ and associates it with the slope of the line passing through $P_\perp$ and $P$, but where we define the line to be the tangent line if $P=P_\perp$ and make our own definition for the slope of the line to the points at infinity to make it an inverse to the function $\phi$ defined later. We let $u=x-a$ and $v=y-b$, so under these new coordinates, $V_p: u^2+v^2+2au+2bv=0$ and $P_\perp = (0,0).$ We notice that $v(v+2b)+u(u+2a)=0$, and as $v+2b$ and $u+2a$ do not vanish at $P_\perp$ and are regular, both $u$ and $v$ are uniformizers for $M_{P_\perp}$ (clearly $(u,v)=M_{P_\perp}$). Also, we have
+    \[
+    v=-\frac{a}{b}u-\frac{a}{2b}(u^2+v^2).
+    \]
+    In particular, $\frac{v}{u}(0,0) = -\frac{a}{b}$. Now we consider the points at infinity, so we have $uZ=U$ and $vZ=V$. Then our candidate rational function is $[V,U]$ since this rational function agrees with $\psi$ except possibly at the points at infinity. However, we also see that since $U=X-aZ$ and $Y-bZ$, it follows that $[V,U](P_\pm) = [Y,X](P_\pm)=[1, \pm i] = [\mp i, 1]$. Therefore 
+    \[
+    \psi([X,Y,Z]) = [Y-bZ, X-aZ]
+    \]
+    is a morphism.
+    
+    
+    Next, we need to define a map in the opposite direction. For $t=[u,v]$, we define $L_t: v(Y-bZ) = u(X-aZ)$. Because $L_t$ and $V_p$ are clearly not contained in one another for any $t\in \P^1$, Bezout's theorem tells us that in $\P^2$, $L_t \cap V_p$ contains two points (possibly non-distinct). We can now define $P_t$ to be the point other than $(a,b)$ in $L_t\cap V_p$. We will now show that $P_t = (a,b)$ iff $L_t$ is tangent to $V_p$ at $(a,b)$, and $P_t=P_\pm$ iff $t=\mp i.$
+
+    First, let's show that if $L_t$ is tangent to $V_p$ at $(a,b)$, i.e., $L_t: a(x-a)+b(y-b)=0$ or equivalently $L_t: ax+by=p$, then $L_t \cap V_p = \{(a,b)\}.$ We check that $[\pm i, 1, 0]$ is not in the line $L_t:aX+bY=pZ$, so we may now take the point of intersection to lie in $\A^2.$
+    
+    Suppose $(x,y)$ is in the intersection, so $ax+by=p$ and also $x^2+y^2 = p.$ Then $y=\frac{p-ax}{b}$, so 
+    \[
+    p=x^2+y^2 = x^2 + \frac{p^2-2apx+a^2x^2}{b^2}.
+    \]
+    Equivalently,
+    \[
+    b^2p=(a^2+b^2)x^2-2apx+p^2
+    \]
+    and since $a^2+b^2=p$, we divide through by $p$ and get
+    \[
+    x^2-2ax+p-b^2 = 0.
+    \]
+    Since $p-b^2=a^2$, we have $(x-a)^2=x^2-2ax+a^2=0$, giving $x=a.$ Then $(a,y)\in L_t$ gives that $y=b$ as well.
+
+    For the reverse direction, suppose $L_t\cap V_p = \{(a,b)\}.$ If $t=\infty$, then $L_t:x=a$. Notice that $(x,y)\in L_t\cap V_p$ then iff $x=a$ and $y^2 = b^2$, i.e. $y=\pm b.$ In particular, $(a,-b)\in L_t\cap V_p$, so by assumption $b=-b$, i.e., $b=0$, which is a contradiction. If $t=\pm i$, we easily observe that $P_\pm \in L_t \cap V_p$, so $P_t = P_\pm.$ Thus we may take $t\ne \infty \pm i$, so $L_t:y-b=t(x-a).$ 
+    
+    We see that $(x,y)\in L_t \cap V_p$ iff $y=t(x-a)+b$ and $x^2+y^2 = p.$ The first equation substituted into the second gives $$a^2+b^2=x^2+t^2(x-a)^2+2bt(x-a)+b^2.$$ Expanding, we have the quadratic equation
+    \[
+    (1+t^2)x^2+2t(b-at)x+a((t^2-1)a-2bt)=0.
+    \]
+    
+    Because $(a,b)$ is the only point of intersection, it follows that $a$ is the only solution in $\bar \Q$ to the above equation, since if $a'$ were a distinct equation, then we just set $b' = t(a'-a)+b$ to get a distinct point $(a',b')\in L_t \cap V_p.$
+    
+    Since $a$ is a double root, letting $\Delta(t)$ be equal to $\frac{1}{4}$ the discriminant of the quadratic in $x$, it must be the case that $\Delta(t)=0$ i.e.
+    \[
+    \Delta(t)=t^2(b-at)^2-a(1+t^2)((t^2-1)a-2bt)=0
+    \]
+    By expanding $\Delta(t)$ as a polynomial in $t$, we get that
+    \[
+    \Delta(t)=(a+bt)^2=0
+    \]
+    i.e., $t=-\frac{a}{b}.$ Therefore
+
+    \[
+    y-b-t(x-a)=y-b+\frac{a}{b}(x-a),
+    \]
+    so indeed $L_t:a(x-a)+b(y-b)=0$ as claimed.
+
+    Now we will show the second claim. We have already shown in the proof of the first claim that $P_{\pm i} = P_{\mp}.$ For the reverse direction, we will primarily use results in the proof of the first claim, namely that if $t^2\ne -1$, then there is a quadratic in $x$ whose roots are $a$ and some other number $a'$. Then $(a', t(a'-a)+b)$ lies in the intersection $L_t\cap V_p\cap \A^2$, so this point is $P_t$, and is in particular, not $P_{\pm}$
+
+    Now we define $\phi(t)=P_t$. More explicitly, we have from our work before and the quadratic formula
+    \[
+    \phi(t) = \begin{cases}
+        \left(\frac{a(t^2-1)-2bt}{1+t^2}, \frac{b-bt^2-2at}{1+t^2}\right), & \text{ if } t\ne \infty, \pm i\\
+        P_\mp, & \text{ if } t=\pm i\\
+        (a,-b), & \text{ if } t = \infty
+    \end{cases}
+    \]
+    Then we guess that $$\phi([U,V]) = [a(U^2-V^2)-2bUV, b(V^2-U^2)-2aUV, U^2+V^2].$$
+
+    To verify this, it suffices to check that the two functions agree on $[U,V]=[i,1],[1,i], [1,0].$ For $[U,V]=[1,0]$, we compute
+    \[
+    [a(U^2-V^2)-2bUV, b(V^2-U^2)-2aUV, U^2+V^2] = [a,-b,1]=\phi([U,V])
+    \]
+    so the morphism agrees with $\phi$ at $\infty.$ If $[U,V]=[i,1]$, then
+    \[
+    [a(U^2-V^2)-2bUV, b(V^2-U^2)-2aUV, U^2+V^2] = [-2a-2bi, 2b-2ai, 0]=[a+bi, i(a+bi),0] =P_-.
+    \]
+    Finally, we compute that if $[U,V]=[1,i]$, then
+    \[
+    [a(U^2-V^2)-2bUV, b(V^2-U^2)-2aUV, U^2+V^2] = [2a-2bi, -2b-2ai, 0] = [i(-b-ai), -b-ai,0]=P_+
+    \]
+    which shows that the morphism agrees with $\phi$ everywhere, hence our guess is correct.
+    By the original definition of the maps $\psi$ and $\phi$, it is clear the two functions are inverses. To be sure our computations are correct though, we first compute that if $U=Y-bZ$ and $V=X-aZ$, then
+    \[
+    U^2+V^2=X^2+Y^2+(a^2+b^2)Z^2-2Z(aX+bY)= 2pZ^2-2Z(aX+bY)
+    \]
+    and
+    \[
+    U^2-V^2 = Y^2+b^2Z^2-2bYZ-X^2-a^2Z^2+2aXZ
+    \]
+    and 
+    \[
+    UV = XY+abZ^2-aYZ-bXZ.
+    \]
+
+    Therefore
+    \begin{align*}
+        &a(U^2-V^2)-2bUV\\
+        &= a(Y^2+b^2Z^2-2bYZ-X^2-a^2Z^2+2aXZ)-2b(XY+abZ^2-aYZ-bXZ) \\
+        &= a(Y^2-X^2)-2bXY+2pXZ-apZ^2\\
+        & = (2pZ^2-2Z(aX+bY)) \frac{X}{Z}.
+    \end{align*}
+   In addition,
+   \begin{align*}
+       &b(V^2-U^2)-2aUV \\
+       &= b(-Y^2-b^2Z^2+2bYZ+X^2+a^2Z^2-2aXZ)-2a(XY+abZ^2-aYZ-bXZ)\\
+       &= 2pYZ-2bY^2-2aXY\\
+       & = (2pZ^2-2Z(aX+bY)) \frac{Y}{Z}
+   \end{align*}
+    
+    so we can now compute that
+   
+
+    
+    \begin{align*}
+        &\phi \circ \psi ([X,Y,Z]) = \phi([Y-bZ, X-aZ])\\
+        &=[(2pZ^2-2Z(aX+bY)) \frac{X}{Z}, (2pZ^2-2Z(aX+bY)) \frac{Y}{Z}, (2pZ^2-2Z(aX+bY))]
+    \end{align*}
+    so $\phi \circ \psi = \id_{\P^1}.$
+
+    On the other hand,
+    \begin{align*}
+        &\psi \circ \phi([U,V]) = \psi([a(U^2-V^2)-2bUV, b(V^2-U^2)-2aUV, U^2+V^2])\\
+        & =[b(V^2-U^2)-2aUV-b(U^2+V^2), a(U^2-V^2)-2bUV-a(U^2+V^2)]\\
+        &=[-2(bU+aV)U,-2(bU+aV)V]
+    \end{align*}
+    so also $\psi \circ \phi=\id_{V_p}.$
+    
+
+    
+
+    For the other direction, suppose $p\equiv 3 \mod 4.$ We will first show that $V_p(\Q) = \emptyset.$ For suppose $[x,y,z]\in V_p(\Q)$, where we may take $x,y,z\in \Z$ and $\gcd(x,y,z)=1.$ Since $x^2+y^2 = pz^2$, we have
+    \[
+    x^2 \equiv -y^2 \mod p.
+    \]
+    If $p\mid y$, then $p\mid x$, but then $pz^2 \equiv 0 \mod p^2$ which implies $p\mid z$ as well, contradicting $\gcd(x,y,z)=1.$ Thus we may assume $p\nmid y$ so in $\Z/p\Z$, $y$ is invertible. Then in $\Z/p\Z$, we see that
+    \[
+    (xy^{-1})^2 = x^2 y^{-2} = -y^2 y^{-2} = -1
+    \]
+    which would then show that $\leg{-1}{p}=1$, contradicting the assumption that $p\equiv 3 \mod 4.$
+
+    Now that $V_p(\Q)=\emptyset$, we will show that there is no morphism defined over $\Q$ from $\P^1$ to $V_p.$ If $\phi=[\phi_0, \phi_1, \phi_2]$ were such a morphism where we may take each $\phi_i \in \Q(\P^1)$ by assumption that $\phi$ is defined over $\Q$, then $\phi(0)=[\phi_0(0), \phi_1(0), \phi_2(0)]\in V_p$. But then $\phi(0)\in V_p(\Q)$ since each $\phi_i\in \Q(\P^1)=\Q(t)$ implies $\phi_i(0)\in \Q$ for each $i$. The result is now immediate.
+\end{proof}
+
+Now we will prove (b), letting $p,q$ be primes congruent to $3\mod 4$.
+\begin{proof}
+
+For field extension $K/\Q$ and a variety $V\subset \P^n$ defined over $\Q$, write $V(K)$ for the $K$-points, i.e. the zero locus of the polynomials defining $V$, considered as elements of $K[X_0, \dots, X_n]$. For any variety $V/\Q$, the set
+\[
+S(V)\ :=\ \{\,v \text{ place of }\Q \mid V(\Q_v)=\emptyset\,\}
+\]
+is invariant under isomorphisms defined over $\Q$. This is because for any field extension $K/\Q$ and any varieties $V,V'\subset \P^n$ defined over $\Q$, there is a functor taking $V$ to $V(K)$. If $\phi:V\to V'$ is a morphism of varieties, then we get the map $\phi_K:V(K)\to V'(K)$ where $\phi_K = [\phi_0, \dots, \phi_n]$ since $\Q(V)\subset K(V_K)$ (if $f=\frac{f_1}{f_2}$ with each $f_i\in \Q[X_0, \dots, X_n]/(g_1, \dots, g_r)$, for any $g \in \Q[X_0,\dots,X_r](g_0, \dots, g_r)$, $g\equiv 0 \mod K[X_0, \dots, X_n](g_1, \dots, g_r)$ so $f_i+g=f_i$ in $K[X_0, \dots, X_n]/K[X_0, \dots, X_n](g_1, \dots, g_r)$, and $f_i \in K[X_0, \dots, X_n](g_1, \dots, g_r)$ implies $f_i$ vanishes on all of $V(K)$, which contains $V(\Q)$, implying $f_i\in (g_1, \dots, g_r)$). Since this base-change construction is functorial, it follows that if $V_p \cong_\Q V_q$, then over any place $v$ of $\Q$, $V_p(\Q_v) \cong_{\Q_v} V_q(\Q_v).$ In particular, $V_p(\Q_v)$ has a $\Q_v$-point iff $V_q(\Q_v)$ does too.
+
+\begin{lemma*}
+    Let $\ell$ be a prime number congruent to $3\mod 4$. Then $$S(V_\ell)=\{2,\ell\}.$$
+\end{lemma*}
+For this proof, we use two results from \cite{CourseArithmetic}, the first being Theorem 1 in Chapter III, which reads:
+    \begin{theorem*}
+        If $k=\R$, we have $(a,b)=1$ if $a$ or $b$ is $>0$, and $(a,b)=-1$ if $a$ and $b$ are $<0$.
+
+        If $k=\Q_p$ and if we write $a,b$ in the form $p^\alpha u, p^\beta v$ where $u$ and $v$ belong to the group $\mathbb{U}$ of $p$-adic units, we have
+        \begin{align*}
+            &(a,b)=(-1)^{\alpha \beta \eps(p)} \leg{u}{p}^\beta \leg{v}{p}^\alpha \quad \text{ if } p\ne 2\\
+            &(a,b) = (-1)^{\eps(u)\eps(v)+\alpha\omega(v)+\beta\omega(u)} \quad \text{ if } p=2.
+        \end{align*}
+        [Recall that $\leg{u}{p}$ denotes the Legendre symbol $\leg{\bar u}{p}$ where $\bar u$ is the image of $u$ by the homomorphism of reduction modulo $p:\mathbb{U}\to \F_p^*.$ As for $\eps(u)$ and $\omega(u)$, they denote respectively the class modulo $2$ of $\frac{u-1}{2}$ and of $\frac{u^2-1}{8}$.]
+    \end{theorem*}
+    In the above, $(a,b)$ denotes the Hilbert symbol of $a$ and $b$, which is $1$ if $z^2=ax^2+by^2$ has a nontrivial solution $(z,x,y)\in k^3$ and is $-1$ otherwise.
+
+    The second result we use is the corollary to Theorem 6 in Chapter IV of \cite{CourseArithmetic}, which reads (for $p$ a prime number and $k=\Q_p$, and $f$ a quadratic form of rank $n$ with discriminant $d=\det M$ where $M$ is the matrix representing the form $f$, and Hasse-invariant $\eps$):
+    \begin{corollary*}
+        Let $a\in k^*/k^{*2}.$ In order that $f$ represent $a$, it is necessary and sufficient that
+        \begin{enumerate}[(i)]
+            \item $n=1$ and $a=d$
+            \item $n=2$ and $(a,-d)=\eps$
+            \item $n=3$ and either $a\ne -d$ or $a=-d$ and $(-1, -d)=\eps$
+            \item $n\ge 4$
+        \end{enumerate}
+        
+    \end{corollary*}
+\begin{proof}
+    Fix a place $v$ of $\Q$. If $v=\infty$, then $[\sqrt{\ell}, 0,1]\in V_\ell(\Q_v)$, so $\infty \notin S(V_\ell).$ Now assume $v$ is a finite place and let $\A^2:Z\ne 0$. We will now show that $V_\ell(\Q_v)\subseteq \A^2$ when $v\not \equiv 1 \mod 4$ and $\{V_\ell(\Q_v)\setminus \A^2 = [\pm i:1:0]\}$ if $v\equiv 1 \mod 4$ and where we let $i\in \Q_v$ be such that $i^2=-1.$ If we had a point $[x:y:z]\in V(\Q_v)\setminus \A^2$, then $z=0$, hence $x^2+y^2 = 0.$ Without loss of generality we may assume that $y\ne 0$, so then $(\frac{x}{y})^2=-1$. Then the form $X^2$ represents $-1$ over $\Q_v.$ Although not necessary, it's easy to verify that if $X^2$ represents $-1$ over $\Q_v$, then $V_\ell(\Q_v)\not \subseteq \A^2.$ 
+    Suppose we have some $x\in \Q_v$ with $x^2=-1.$ Then $2\nu_v(x)=\nu_v(-1)=0$ so $\nu_v(x)=0$ implies that $x\in \Z_v$ because $\Z_v$ is a DVR. Thus $V_\ell(\Q_v)\not \subset \A^2$ iff $-1$ is a square in $\Z_v^*.$
+    
+    If $v=2$, we apply Theorem 4 of Chapter II of \cite{CourseArithmetic} to see that an element $2^n u$ of $\Q_2^*$ is a square iff $n$ is even and $u\equiv 1 \mod 8.$ In particular, $-1$ is not a square in $\Q_2$. Now assume $v$ is a finite place different from $2.$ Then Theorem 3 of Chapter II of \cite{CourseArithmetic} tells us that for $x=v^n u$ in $\Q_v^*$, $x$ is a square iff $n$ is even and $\leg{u}{v}=1.$ Thus $-1$ is a square in $\Q_v$ iff $\leg{-1}{v}=1$ iff $v\equiv 1 \mod 4.$
+    
+    We have now shown that $V_\ell(\Q_v)\subset \A^2$ for $v\not \equiv 1 \mod 4$. Now suppose $v\equiv 1 \mod 4$. We know that there is some integer $x_0$ such that $x_0^2 \equiv -1 \mod v$, and as the derivative of the polynomial $x^2+1 \in \Z_v[x]$ has non-vanishing derivative except at $0\ne x_0$, Hensel's lemma gives a lift to some $i\in \Z_v$ that's a root of $x^2+1$, i.e., $i^2=-1.$ Then clearly as we have $(\frac{X}{Y})^2=-1$, then $\frac{X}{Y}=\pm i$, hence the only points outside of the affine patch are $[i,1,0]$ and $[-i, 1,0].$
+
+    This shows every place in $S(V_\ell)$ is a finite prime not congruent to $1\mod 4.$ Since $V_\ell(\Q_v)\subset \A^2$ for every such place, we have that $v\in S(V_\ell)$ implies $v\not \equiv 1 \mod 4$ (which implies $S(V_\ell)\subset \A^2$) and $v\ne \infty.$ Thus now we're interested in whether the quadratic form $f=X^2+Y^2$ represents $\ell$ in $\Q_v$, because by our work, this is equivalent to $V_\ell(\Q_v)\ne \emptyset$ for places not $\infty$ and $\equiv 1 \mod 4.$
+    
+    
+     The quadratic form $f$ has discriminant $d=1$ and Hasse invariant $\eps = (1,1)=1.$ By the corollary then, $f$ represents $\ell$ iff $(\ell,-1)=1.$ Now we appeal to the theorem to compute $(\ell, -1).$ If $v=2$, then we compute
+     \[
+     (\ell, -1)=(-1)^{1\cdot 1+0\cdot \omega(\ell)+0\cdot 1} = -1
+     \]
+     which shows that $2\in S(V_\ell).$ Now assume that $v\equiv 3 \mod 4.$ If $v\ne \ell$, we compute that
+     \[
+     (\ell, -1) = (-1)^{0\cdot 0\cdot 1} \leg{\ell}{v}^0 \leg{-1}{v}^0 = 1.
+     \]
+     Thus the only remaining possibility is that $\ell \in S(V_\ell).$ For $v=\ell$, we have $\alpha = 1$ and $u=1$, so 
+     \[
+     (\ell, -1)=(-1)^{1\cdot 0 \cdot 1} \leg{1}{\ell}^0 \leg{-1}{\ell}^1=-1
+     \]
+     which also proves that $\ell \in S(V_\ell).$
+    
+\end{proof}
+
+
+Now that we have shown $S(V_\ell)$ is invariant under $\Q$-isomorphism and that $S(V_\ell)=\{2,\ell\}$ for $\ell \equiv 3 \mod 4$, it follows that if $V_p\cong_\Q V_q$, then $\{2, p\} = \{2, q\}$ so $p=q$ as desired.
+\end{proof}
 
 
 
@@ -670,7 +945,7 @@ Lastly, we will prove the claim that $\deg \div(\omega) = \deg \div (dt).$
 
 \topic{Exercises}
 
-\tocexercise{Exercise 2.1}{
+\tocexercise{Exercise 1}{
 Let $(R,\frkm,k)$ be a Noetherian local domain that is not a field. Then the following are equivalent:
 \begin{enumerate}[(i)]
     \item $R$ is a discrete valuation ring (DVR)
@@ -731,7 +1006,7 @@ I take the definition of $R$ being a DVR to mean that there exists a function $\
     Let $\frkm/\frkm^2=k\bar t$. Since $R$ is a local ring, $J(R)=\frkm$. By assumption, for any $x\in \frkm$, there exists some $y\in R$ such that $x \equiv yt \mod \frkm^2$, i.e. $\frkm \subset tR+\frkm^2.$ As $t\in \frkm$ and $\frkm^2\subset \frkm$, it follows that $\frkm = tR+\frkm^2=tR+J(R)\frkm.$ Applying Nakayama's Lemma, it follows that $tR = \frkm$.
     \end{proof}
 
-    \tocexercise{Exercise 2.2}{
+    \tocexercise{Exercise 2}{
     Let $\phi:C_1\to C_2$ be a nonconstant map of smooth curves, let $f\in \bar K(C_2)^*$, and let $P\in C_1.$ Then 
     \[
     \ord_P(\phi^* f) = e_\phi(P) \ord_{\phi P}(f).
@@ -748,7 +1023,7 @@ I take the definition of $R$ being a DVR to mean that there exists a function $\
     \end{proof}
 
 
-\tocexercise{Exercise 2.4}{
+\tocexercise{Exercise 4}{
 Let $C$ be a smooth curve and let $D\in \Div(C).$ Independent of the Riemann-Roch theorem, the below results hold:
 \begin{enumerate}[(a)]
     \item $\calL(D)$ is a $\bar K$ vector space.
@@ -880,7 +1155,397 @@ Now for the more difficult proof, that of (b). First, I will give the easy proof
     
 \end{proof}
 
+\chapterheading{Chapter III: The Geometry of Elliptic Curves}
 
+\topic{Section 1: Weierstrass Equations}
+
+\tocproposition{Proposition 1.5}{
+Let $E$ be an elliptic curve. Then the invariant differential $\omega$ associated to a Weierstrass equation for $E$ is holomorphic and nonvanishing, i.e., $\div \omega = 0.$
+}
+
+We use all of the same notation as in the book for the proof.
+
+\begin{proof}
+    First, we will verify that $\frac{d(x-x_0)}{F_y(x,y)}=-\frac{d(y-y_0)}{F_x(x,y)}.$ Notice that the equality holds iff
+    \[
+     F_x(x,y)dx+F_y(x,y) dy=F_x(x,y) d(x-x_0)+F_y(x,y) d(y-y_0) = 0.
+    \]
+    We will now show that for any polynomial $G(x,y)$, it's true that $G_x(x,y)dx+G_y(x,y) dy = d(G(x,y)).$ We will prove this by induction on the number of terms in $G$, with the base case being $1$, i.e., $G$ is a monomial. For this case, write $G=cx^iy^j$ for $i,j\ge 0$ and $c\in \bar K.$ Then
+    \[
+    dG = d(cx^iy^j) = cd(x^iy^j) = c\left[ y^j d(x^i)+x^i d(y^j)\right] = c\left[ i y^j x^{i-1}dx+j x^i y^{j-1} dy\right] = G_xdx+G_ydy.
+    \]
+    For the inductive step, write $G(x,y)=H(x,y)+M(x,y)$ where $M$ is a monomial in $x,y.$ Then both $H,M$ satisfy the inductive hypothesis, so we see that
+    \[
+    dG=d(H+M)=dH+dM = (H_x dx + H_y dy)+(M_x dx+ M_y dy) = (H_x+M_x)dx+(H_y+M_y)dy=G_xdx+G_ydy
+    \]
+    as claimed. Now applying this result to $F$, we get that
+    \[
+    0=d(0)=d(F)=F_x(x,y)dx+F_y(x,y)dy.
+    \]
+
+    Next, we will verify that the map $$\phi: E\to \P^1, \quad (x,y)\mapsto x$$ is of degree $2$. We must compute $\deg \phi = [\bar K(E): \phi^*\bar K(\P^1)] = [\bar K(E): \phi^* \bar K(x)]=[\bar K(E):\bar K(x)]$ where $x$ in the last expression is the $x\in \bar K(E)$ and the $x$ in the expression before is the coordinate function on $\P^1.$ We see that $y\in \bar K(E)$ is a root of the quadratic polynomial $F(x,T)\in \bar K(x)[T].$ We must now show $f(x,T)$ is irreducible over $\bar K(x).$ Suppose not, so $F(x,T)$ splits into linear factors over $\bar K(x)$, and let $\frac{p(x)}{q(x)}\in \bar K(x)$ be a root of $F(x,T)$ with $\gcd(p,q)=1.$ Then
+    \[
+    0 = F(x, \frac{p}{q})= \frac{p^2}{q^2}+(a_1x+a_3) \frac{p}{q}-x^3-a_2x^2-a_4x-a_6.
+    \]
+    Multiplying through by $q^2$, we get the equation in $\bar K[x]$:
+    \[
+    0=p^2+(a_1x+a_3)pq-(x^3+a_2x^2+a_4x+a_6)q^2.
+    \]
+    Then
+    \[
+    0=p^2+(a_1x+a_3)pq-(x^3+a_2x^2+a_4x+a_6)q^2 \equiv p^2 \mod q
+    \]
+    implies that $q\mid p$, contrary to assumption $p$ and $q$ share no common factors. Now that $x,y$ generate $\bar K(E)$ and $y$ has degree $2$ over $\phi^* \bar K(\P^1)$, it follows that $\deg \phi = 2.$
+    
+    
+    From II.2.6a, we know that for any $Q\in \P^1$,
+    \[
+    \sum_{R\in \phi^{-1}(Q)} e_\phi(R) = \deg \phi=2.
+    \]
+    In addition, $\phi^{-1}(x_0) $ is the zero set of the quadratic $F(x_0, y)$, hence has cardinality $1$ or $2$, and cardinality $2$ iff $F(x_0, y)$ has a double root at $y_0$ (because $F(x_0, y_0)=0$ by hypothesis) iff $F_y(x_0, y_0)=0.$ We also see that
+    \[
+    \phi^* t_{\phi P} = \phi^* t_{x_0} = \phi^* (x-x_0) = x-x_0
+    \]
+    so it follows that $\ord_P(x-x_0)=e_\phi(P)$ is at most $2$, with equality iff $F_y(x_0,y_0)=0.$
+
+    Next, we will show that $\ord_P(\omega)=0$. We can apply II.4.3d to get 
+    \[
+    \ord_P(\frac{d(x-x_0)}{F_y(x,y)})=\ord_P(\frac{1}{F_y(x,y)})+\ord_P(x-x_0)-1 = \ord_P(x-x_0)-\ord_P(F_y(x,y))-1.
+    \]
+    if $p=0$ or $p\nmid \ord_P(x-x_0)$, where $p=\Char K$ here. Supposing this condition is met, if $\ord_P(x-x_0)=1$, then $F_y(x_0,y_0)\ne 0$ and is regular, hence $\ord_P(F_y(x_0, y_0)=0$ and the result is $0$. If instead $\ord_P(x-x_0)=2$, then $F_y(x_0, y_0)=0$, and as $F_y(x,y)=2y+a_1x+a_3$ is linear, it cannot vanish at $P$ with order more than $1$ ($M_P = (x-x_0, y-y_0)$ so $M_P^2=((x-x_0)^2, (x-x_0)(y-y_0), (y-y_0)^2)$ and we cannot write a nonzero linear form in $x$ and $y$ as an element of this ideal). Therefore $\ord_P(F_y(x,y))=1$, so again $\ord_P(\omega)=0.$
+
+    The last case to consider is $\ord_P(x-x_0)=2=\Char K.$ We also have $F_y(x_0, y_0)=0.$ As $E$ is smooth, it follows that $F_x(x_0,y_0)\ne 0$. Therefore $\ord_P(F_x(x,y))=0$, so we just need to compute $\ord_P(y-y_0)$ now. We have a map $\psi:E \to \P^1 \quad (x,y)\mapsto y$ where $\psi^* t_{\psi(P)}=y-y_0$. Now we will compute $$\deg \psi = [\bar K(E): \bar K(y)].$$ We see that $x\in \bar K(E)$ satisfies the cubic $F(T, y)$ over $\bar K(y)$. We will now show $F(T,y)$ is irreducible over $\bar K(y).$ If it were reducible, then it would have a root in $\bar K(y)$ because $\deg F(T,y)=3$, so let $\frac{a(y)}{b(y)}\in \bar K(y)$ be a root with $\gcd(a,b)=1$. Then we have
+    \[
+    0=F(\frac{a}{b},y)=-\frac{a^3}{b^3}-a_2 \frac{a^2}{b^2}+(a_1y-a_4) \frac{a}{b}+y^2+a_3y-a_6
+    \]
+    so multiplying through by $b^3$ gives
+    \[
+    -a^3-a_2 a^2 b + (a_1y-a_4)ab^2+(y^2+a_3y-a_6)b^3 = 0.
+    \]
+    Therefore $$0=-a^3-a_2 a^2 b + (a_1y-a_4)ab^2+(y^2+a_3y-a_6)b^3\equiv -a^3 \mod b$$ so $b\mid a$, contrary to assumption. Therefore $x$ has degree 3 over $\bar K(y)=\psi^* \bar K(\P^1)$, and as $x,y$ generate $\bar K(E)$, it follows that $\deg \psi =[\deg \bar K(E):\psi^* \bar K(\P^1)]=3.$ Now we have
+    \[
+    \sum_{R\in \psi^{-1}(y_0)} e_\psi(R) = \deg \psi = 3.
+    \]
+    This shows that $\ord_P(y-y_0)=\ord_P(\psi^* t_{\psi P})=e_\psi(P)\ge 2$ iff $F(x,y_0)$ has a multiple root at $x_0$ iff $F_x(x_0,y_0)=0$. This is false by hypothesis, so we conclude that $\ord_P(y-y_0)=1.$ Now that $y-y_0$ is a uniformizer at $P$,
+    \[
+    \ord_P(\omega) = \ord_P(-\frac{d(y-y_0)}{F_x(x,y)})=\ord_P(\frac{1}{F_x(x,y)})=0.
+    \]
+
+    Finally, we will show that $\ord_O(\omega)=0$ in characteristic 2, where the other characteristics are taken care of in the book. Let $t$ be a uniformizer at $O$, and continuing the notation, write $x=t^{-2}f$ and $y=t^{-3}g$ where $f(O),g(O)\ne 0,\infty.$ We compute
+    \[
+    \omega = \frac{dy}{F_x(x,y)} = \frac{t^{-4}g+t^{-3}g'}{t^{-4}f^2+a_4+a_1t^{-3}g}dt = \frac{g+tg'}{f^2+a_4t^4+a_1 t g} dt.
+    \]
+    We see that $g+tg'(O)\ne 0,\infty$ since $g'(O)\ne 0, \infty$ by II.4.3b. Similarly, $f^2+a_4t^4+a_1tg\ne 0, \infty$. Therefore 
+    \[
+    \ord_O(\omega)=\ord_O(\frac{g+tg'}{f^2+a_4t^4+a_1tg})=0
+    \]
+    completing the case $\Char K = 2.$
+\end{proof}
+
+\tocproposition{Proposition 1.6}{
+If a curve $E$ given by a Weierstrass equation is singular, then there exists a rational map $\phi:E\to \P^1$ of degree one, i.e., the curve $E$ is birational to to $\P^1.$
+}
+We will just justify that we can always make a linear change of variables to assume that the singular point is $(0,0)$, because the rest of the proof in the book is straightforward.
+\begin{proof}
+    If the singular point is $(x_0, y_0)$, then we can apply the linear change of coordinates $(x,y)\mapsto (x-x_0, y-y_0)$ to get that the singular point is $(0,0).$ Now we claim that, letting $O$ be the point at infinity, $E$ is never singular at $P_\infty.$ In projective coordinates, $E: Y^2Z+a_1XYZ+a_3YZ^2-X^3-a_2X^2Z-a_4XZ^2-a_6Z^3$. Then using the affine chart $Y\ne 1$, our curve is
+    \[
+    E:z+a_1xz+a_3z^2-x^3-a_2x^2z-a_4xz^2-a_6z^3
+    \]
+    and $O=(0,0).$ This is singular at $O$ only if
+    \[
+    0=F_x(0,0)=[1+a_1x+2a_3z-a_2x^2-2a_4xz-3a_6z^2](0,0)=1
+    \]
+    so indeed $O$ is nonsingular.
+\end{proof}
+\tocexercise{Exercise 17}{Let $\calK$ be a definite quaternion algebra. Prove that $\calK$ is ramified at $\infty.$}
+We let $\calK = \Q+\Q\alpha+\Q\beta+\Q\alpha \beta$ where $\alpha^2, \beta^2$ are negative rational numbers and $\alpha \beta =-\beta \alpha.$
+
+\begin{proof}
+    Clearly $M_2(\R)$ has 0-divisors, so it suffices to show that $\R \otimes \calK$ is a division algebra. \begin{lemma*}
+    Suppose $L/K$ is a field extension, and $V$ is a finite-dimensional $K$-vector space with basis $v_1, \dots, v_n$. Then $1\otimes v_1, \dots, 1\otimes v_n $ is a basis for the $L$-vector space $L\otimes_K V.$
+\end{lemma*}
+\begin{proof}
+    Suppose $\sum_{i=1}^n \ell_i \otimes v_i = 0$ for some $\ell_1, \dots, \ell_n \in L.$ Let $L^\vee=\Hom_K(L,K)$ be the dual of $L$ as a $K$-vector space. There is an injective map
+    \[
+    L\otimes V \hookrightarrow \Hom_K(L^\vee, V), \quad \ell \otimes v \mapsto (f\mapsto f(\ell) v).
+    \]
+    Using this injection, we get a $K$-linear map $T:L^\vee \to V$ corresponding to $\sum_i \ell_i \otimes v_i.$ Because we assume that this tensor is trivial, so too is $T.$ Let $1\le j\le n$ be arbitrary. Letting $\ell_j^\vee\in L^\vee$ be the dual of $\ell_j$ (explicitly, if $\ell_j=0$ then $\ell_j^\vee = 0$, and otherwise we let $\calB$ be a $K$-basis for $L$ including $\ell_j$, and let $\ell_j^\vee( \sum_{\ell \in \calB} \lambda_l \ell)=\lambda_{\ell_j}$), we get that
+    \[
+    0=T\ell_j^\vee = \sum_i \ell_j^\vee(\ell_i) v_i= \ell_j^\vee(\ell_j) v_j
+    \]
+    so $\ell_j^\vee(\ell_j)=0.$ This is only possible if $\ell_j=0$. Now because $j$ was arbitrary, we conclude that each $\ell_j$ is trivial, hence the $1\otimes v_i$ are linearly independent. Every pure tensor $\ell \otimes v$ can be written as
+    \[
+    \ell \otimes v = \ell \otimes \sum_i \lambda_i v_i = \sum_i \lambda_i \ell (1 \otimes v_i)
+    \]
+    for some $\lambda_i \in K$, so every pure tensor is a finite $L$-linear combination of the $1\otimes v_i.$ Because every tensor is a finite $K$-linear combination of pure tensors, it follows that the $1\otimes v_i$ span $L\otimes V$ as a $L$-vector space, giving the result.
+\end{proof}
+    By the lemma, $\{1\otimes 1, 1 \otimes \alpha, 1 \otimes \beta, 1 \otimes \alpha \beta\}$ is an $\R$-basis for $\R \otimes \calK.$ Thus we take an arbitrary element of $\R \otimes \calK$ to be 
+    \[
+    q=a\otimes 1 + b\otimes \alpha+c\otimes \beta+d\otimes \alpha \beta
+    \]
+    for $a,b,c,d\in \R.$ Letting $\bar q = a\otimes 1 - b\otimes \alpha - c\otimes \beta - d\otimes \alpha \beta$, we compute
+    \[
+    q \bar q = a^2-b^2\alpha^2-c^2\beta^2+d^2 \alpha^2 \beta^2 \otimes 1 = \bar q q
+    \]
+    using the relation $(\alpha\beta)^2 = -\alpha^2 \beta^2.$ We let $|q|=q\bar q \in \R.$ Since $\alpha^2, \beta^2<0$, $|q| = 0$ iff $a=b=c=d=0$ iff $q=0$. Thus if $q\ne 0$, we have $\frac{\bar q}{|q|} q = 1 = q \frac{\bar q}{|q|}$, so $q$ is invertible.
+\end{proof}
+\tocexercise{Exercise 19}{Let $\calK$ be a quaternion algebra.
+\begin{enumerate}[(a)]
+    \item Prove that $\calK \otimes\, \overline{\Q} \cong M_2(\overline{\Q}).$
+    \item Prove that $\calK \otimes \calK \cong M_4(\Q)$. This shows that $\calK$ corresponds to an element of order 2 in the Brauer group $\mathrm{Br}(\Q).$
+\end{enumerate}
+}
+We $\calK = \Q+\Q\alpha+\Q\beta+\Q\alpha\beta$ subject to the usual relations. First we prove (a):
+\begin{proof}
+    Let $s,t\in \bar \Q$ be such that $s^2 = \alpha^2$ and $t^2 = \beta^2.$ By the lemma in the proof of Exercise 17, we have that $\{1 \otimes 1, \alpha \otimes 1, \beta \otimes 1, \alpha \beta \otimes 1\}$ is a $\bar \Q$-basis for $\calK \otimes\, \bar \Q.$ We let $\Phi:\calK \otimes \, \bar \Q \to M_2(\bar \Q)$ be a map of $\bar \Q$ vector spaces defined by $1\otimes b \mapsto M_b$ for any element $b$ of the above basis for $\calK \otimes \, \bar \Q$, where
+    \begin{align*}
+        M_b = \begin{cases}
+            \id, & \text{ if } b = 1\\
+            s\begin{pmatrix}
+                1&-2\\
+                0&-1
+            \end{pmatrix}, & \text{ if } b = \alpha \\
+            t\begin{pmatrix}
+                1&0\\
+                1&-1
+            \end{pmatrix}, & \text{ if } b = \beta \\
+            st\begin{pmatrix}
+                -1 & 2\\
+            -1 & 1
+            \end{pmatrix}, &\text{ if } b = \alpha \beta
+        \end{cases}.
+    \end{align*}
+    We compute that
+    \[
+    M_\alpha M_\beta = st \begin{pmatrix}
+                1&-2\\
+                0&-1
+            \end{pmatrix}
+            \begin{pmatrix}
+                1&0\\
+                1&-1
+            \end{pmatrix} = st \begin{pmatrix}
+                -1 & 2\\
+                -1 & 1
+            \end{pmatrix} = M_{\alpha \beta}.
+    \]
+    In addition,
+    \[
+    -M_\beta M_\alpha = -st\begin{pmatrix}
+                1&0\\
+                1&-1
+            \end{pmatrix}\begin{pmatrix}
+                1&-2\\
+                0&-1
+            \end{pmatrix} = -st\begin{pmatrix}
+                1& -2\\
+                1 & -1
+            \end{pmatrix} = M_{\alpha \beta}.
+    \]
+    We easily observe that $M_\alpha^2 = s^2 \id = \alpha^2 \id$ and $M_\beta ^2 = t^2\id  = \beta^2 \id$. Because these are the only relations imposed on $\alpha$ and $\beta$, it follows that $\Phi$ is actually a homomorphism of $\bar \Q$-algebras. Because $\dim_{\bar \Q} M_2(\bar \Q)=4 = \dim_{\bar \Q} \calK \otimes \, \bar \Q$, to show $\Phi$ is an isomorphism of $\bar \Q$-algebras, it suffices to show the $M_b$ are $\bar \Q$-linearly independent. Suppose that
+    \[
+    0=a \id + bM_\alpha+cM_\beta+dM_{\alpha \beta} = \begin{pmatrix}
+        a+bs+ct-dst & -2bs+2dst\\
+        ct-dst & a-bs-ct+dst
+    \end{pmatrix}.
+    \]
+    The entries not along the diagonal give that $c=ds$ and $b=dt.$ The first entry on the diagonal gives 
+    \[
+    0=a+bs+ct-dst = a+dst+dst-dst = a+dst
+    \]
+    so $a=-dst.$ Thus the second entry on the diagonal gives
+    \[
+    0=a-bs-ct+dst = -dst-dst-dst+dst = -2dst
+    \]
+    which implies that $d=0.$ This gives that $a=b=c=0$ as well then, so the matrices are linearly independent.
+\end{proof}
+For (b), we will follow the hint given in the book:\begin{proof}
+    First we notice that $\calK$ is obviously simple because it's a division algebra (if $q=a+b\alpha+c\beta+d\alpha\beta$, letting $\bar q = a-b\alpha-c\beta-d\alpha\beta$ and $|q|=a^2-b^2\alpha^2-c^2\beta^2+d^2\alpha^2\beta^2$ one verifies $\frac{\bar q}{|q|}=q^{-1}$). Next, we will show that $\calK$ is central, i.e., its center $Z(\calK)$ is just $\Q.$ Suppose $q=a+b\alpha+c\beta+d\alpha \beta \in Z(\calK).$ Then
+    \[
+    (b\alpha^2)+(a)\alpha+(d\alpha^2) \beta+(c) \alpha \beta=\alpha q =q \alpha = (b\alpha^2)+(a)\alpha+(-d \alpha^2)\beta+(-c)\alpha \beta
+    \]
+    so $c=d=0$. Therefore
+    \[
+    a\beta+(-b)\alpha \beta=\beta q = q\beta=a\beta+b\alpha \beta
+    \]
+    so $b=0$ as well, showing $q\in \Q$ as desired.
+    \begin{lemma*}
+        Suppose $A$ is a simple central $K$-algebra and $B$ is a simple $K$-algebra. Then $A\otimes_K B$ is simple.
+    \end{lemma*}
+    \begin{proof}
+        Suppose $I$ is a nonzero ideal (in this proof, ideal means two-sided) of $A\otimes B.$ Let $S$ be the set of all nonzero elements in $I$ of the form $\sum_{i=1}^n a_i \otimes b_i$ such that the set $\{b_1, \dots, b_n\}$ is $K$-linearly independent. Then $S$ is the set of all nonzero elements of $I$, since if $b_j = \sum_{i \ne j} \lambda_i b_i$, 
+        \[
+        \sum_i a_i \otimes b_i =(a_j \otimes b_j)+ \sum_{i\ne j} a_i \otimes b_i =(a_j\otimes \sum_{i\ne j} \lambda_i b_i)+\sum_{i\ne j} a_i \otimes b_i=\sum_{i\ne j}(\lambda_i a_j+a_i)\otimes b_i
+        \]
+        
+        Let $u=\sum_{i=1}^n a_i \otimes b_i\in S$ be an element minimal in $n$. There must exist some $1\le j \le n$ where $a_j\ne 0$. Since $a_i\ne 0$ and $A$ is simple, we have $Aa_j A = A$, so there exist some $a, a'\in A$ with $aa_ja' = 1.$ Thus we may replace $u$ by $(a\otimes 1)u(a'\otimes 1)$ to assume that $a_j=1.$ Now let $a\in A$ be arbitrary. We compute
+        \[
+        (a\otimes 1)u-u(a\otimes 1) = \sum_{i\ne j}[a, a_i] \otimes b_i
+        \]
+        where $[a,a_i]=a a_i-a_i a$ is the commutator. Because $n$ was minimal, it must be the case that
+        \[
+        \sum_{i\ne j} [a, a_i] \otimes b_i = 0.
+        \]
+        \begin{lemma*}
+            Suppose $V,W$ are $K$-vector spaces where $\{w_1, \dots, w_n\}\subset W\setminus \{0\}$ and $\{v_1, \dots, v_n\}\subset V$ are linearly independent. Then $\{v_1 \otimes w_1, \dots, v_n \otimes w_n\} \subset V\otimes_K W$ is linearly independent.
+        \end{lemma*}
+        \begin{proof}
+            Suppose that 
+            \[
+            \sum_i \lambda_i (v_i \otimes w_i)=0.
+            \]
+            Letting $V^\vee$ be the dual vector space of $V$, there exists a $K$-linear map
+            \[
+            V\otimes W \to \Hom_K(V^\vee, W), \quad v\otimes w \mapsto (f\mapsto f(v)w).
+            \]
+            Let $T:V^\vee \to W$ be the map corresponding to $\sum_i \lambda_i (a_i \otimes b_i).$ Since we assume this sum is trivial, so too is $T.$ For $v\in V$, let $v^\vee \in V^\vee$ be defined as in the lemma in the proof of Exercise 17. For any $1\le j \le n$, we then have
+            \[
+            0=T(v_j^\vee) = \sum_i \lambda_i v_j^\vee(v_i) w_i = \lambda_j w_j
+            \]
+            because $v_j^\vee(v_i)=\delta_{ij}$ by definition of $v_j^\vee$ and that the $v_i$ are linearly independent. But because $w_j\ne 0$, it follows that $\lambda_j=0$, and since $j$ was arbitrary, the claim follows.
+        \end{proof}
+        Because the $b_i$ are linearly independent, we can apply to the lemma to see that $[a,a_i]=0$ for each $i$. Since $a$ was arbitrary, it follows that each $a_i \in Z(A)=K.$ Thus
+        \[
+        \sum_i a_i \otimes b_i = \sum_i 1 \otimes a_i b_i=1 \otimes \sum_i a_ib_i.
+        \]
+        Letting $b=\sum_i a_i b_i \in B$, we see $b\ne 0$ and $1\otimes b \in I$. By simplicity of $B$, we have $BbB=B$, so there exist some $a,c\in B$ where $abc = 1.$ Since $1\otimes b\in I$, we have
+        \[
+        I\ni (1\otimes a)(1\otimes b)(1\otimes c) = 1\otimes abc = 1
+        \]
+        so indeed $I=A\otimes B.$
+    \end{proof}
+    We apply the above lemma to see that $\calK \otimes \calK^{\op}$ is simple (since $\calK$ is central simple clearly implies $\calK^{\op}$ is too). Now we define the map $$\Phi:\calK \otimes \calK^{\op} \to \End(\calK), \quad a\otimes b^{\op} \mapsto (x\mapsto axb).$$
+
+    One verifies that this is a homomorphism of $\Q$-algebras, hence its kernel is an ideal of $\calK \otimes \calK^{\op}.$
+
+    
+    Since $\ker \Phi$ is an ideal of $\calK \otimes \calK^{\op}$, either $\ker \Phi = 0$ or $\ker \Phi = \calK \otimes \calK^{\op}.$ However, we see that
+    \[
+    \Phi(1\otimes 1) = \id_{\calK}
+    \]
+    so $\ker \Phi $ is a proper ideal, hence trivial by simplicity. Thus $\Phi$ is injective. Because $\dim_\Q \calK \otimes \calK^{\op}=16=\dim_\Q \End(\calK)$, it follows that $\Phi$ is surjective as well, hence an isomorphism of $\Q$-algebras, so.
+    \[
+    \calK \otimes \calK^{\op} \cong \End(\calK).
+    \]
+    Because $\calK$ is a 4-dimensional $\Q$-vector space, we get 
+    \[
+    \End(\calK)\cong M_4(\Q)
+    \]
+    as well. Thus all that remains is to show that $\calK^{\op} \cong \calK$ as $\Q$-algebras, i.e., there exists an anti-automorphism of $\calK$. Let $\psi(a+b\alpha+c\beta+d\alpha\beta)=a-b\alpha-c\beta-d\alpha\beta$. We know that
+    \[
+    \psi(q)q \in \Q
+    \]
+    and $\psi(q)q = 0$ iff $q=0.$ One also verifies that
+    \[
+    \psi(q_1 q_2)=\psi(q_2)\psi(q_1)
+    \]
+    and $\psi^2 = \id.$ Thus $\psi$ is an anti-automorphism, so finally
+    \[
+    \calK \otimes \calK \cong \calK \otimes \calK^{\op} \cong \End(\calK) \cong M_4(\Q).
+    \]
+\end{proof}
+
+\tocexercise{Exercise 20}{Let $\calK$ be an imaginary quadratic field with ring of integers $\calO.$ Prove that the orders of $\calK$ are precisely the rings $\Z+f\calO$ for integers $f>0.$ The integer $f$ is called the \textit{conductor} of the order.}
+We let $\calK= \Q(\sqrt{D})$ where $D$ is a squarefree negative integer. We recall that $\calO$ is the maximal finitely generated $\Z$-submodule of $\calK$, so any order of $\calK$ is automatically a subring of $\calO.$ It's also a general fact from algebraic number theory that $\calO=\Z[\omega]$ where
+\[
+\omega = \begin{cases}
+    \frac{1+\sqrt{D}}{2}, & \text{ if } D\equiv 1 \mod 4\\
+    \sqrt{D}, & \text{ otherwise}
+\end{cases}
+\]
+but we only need that $\calO=\Z+\Z\omega$ and $\{1, \omega\}$ is $\Z$-linearly independent.
+\begin{proof}
+    Let $\calR$ be an order of $\calK.$ We know that $1\in \calR$, so $\Z\subset \calR.$ Also, $\Z\ne \calR$ otherwise $\calK = \Q \otimes \calR = \Q \otimes \Z = \Q$ which is absurd. Thus $\rank \calR \ge 2.$ Also, $\rank \calO =2$ and $\calR \subset \calO$ implies that $\rank \calR \le 2$, so $\rank \calR = 2.$ Now let $\{1,x\}$ be a $\Z$-basis for $\calR.$ Because $\rank \calO = \rank \calR$, $e\coloneqq [\calO:\calR]<\infty.$ Then
+    \[
+    ex = a+f\omega
+    \]
+    for some $a,f\in \Z.$ Therefore $f\omega \in \calR$, so 
+    \[
+    \Z+f\calO=\Z+\Z f\omega \subset \calR.
+    \]
+    Since $f=[\calO:\Z+f\calO]$, if we define $d=[\calR:\Z+f\calO]$, we have
+    \[
+    e=fd.
+    \]
+    Note: we know $d<\infty$ because $\Z+f\calO$ is a submodule of the free module $\calO$ (and $\Z$ is a PID), or alternatively 
+    \[
+    \rank \Z+f\calO = \dim_\Q \Q \otimes (\Z+f\calO) = \dim_\Q \calK = 2  = \rank \calR.
+    \]
+    Thus
+    \[
+    fdx = a+f\omega \Rightarrow f(dx-\omega) =a
+    \]
+    so $dx-\omega \in \Z$ and $\alpha \coloneqq \frac{a}{f}\in \Z.$ Therefore
+    \[
+    dx = \alpha + \omega
+    \]
+    which shows
+    \[
+    \calO \supset \calR = \Z+\Z x \supset \Z+\Z dx = \Z+\Z \omega = \calO
+    \]
+    so equality holds throughout. Therefore $x=b+cdx$ for some $b,c\in \Z$. But this implies that $b=0$ and $cd=1$, hence $d=1$, i.e., $\calR = \Z+f\calO$ as desired.
+\end{proof}
+
+\tocexercise{Exercise 30}{Let $A$ be a finite abelian group of order $N^r.$ Suppose that for every $D\mid N$ we have $\# A[D]=D^r$, where $A[D]$ denotes the subgroup consisting of all elements of order dividing $D.$ Prove that
+\[
+A \cong (\Z/N\Z)^r.
+\]
+}
+\begin{proof}
+    By the structure theorem for finitely generated abelian groups, $$A\cong \bigoplus_{i=1}^n \Z/p_i^{e_i} \Z$$ with each $p_i$ a rational prime. We also let $N=\prod_j q_j^{f_j}$ with each $q_j$ distinct rational primes. Because $$\prod_i p_i^{e_i} =\# A = N^r=\prod_{q_j}q_j^{r f_j}$$ it follows that each $p_i$ is some $q_j$, and for each $j$,
+    \[
+    \sum_{p_i = q_j} e_i  =r f_j.
+    \]
+    We rewrite
+    \[
+    A\cong \bigoplus_{q_j} \bigoplus_{p_i = q_j} \Z/q_j^{e_i}\Z
+    \]
+    Now we will show that for any prime $q$ and positive integers $e,f$, $\Z/q^e\Z[q^f]=q^{\min\{e,f\}}.$ Indeed, if $f\ge e$, then every element of $\Z/q^e\Z$ is annihilated by $q^f$, so $\Z/q^e\Z[q^f]=\# \Z/q^e\Z = q^e.$ Now suppose $f<e$ and we consider the multiplication by $q^f$ map on $\Z/q^e\Z.$ Its kernel is $q^{e-f}\Z/q^e\Z$, which is isomorphic to $\Z/q^f \Z$, hence has $q^f$ elements. For each $q_j,$ we let $A_j = \bigoplus_{p_i = q_j} \Z/q_j^{e_j}\Z.$ We notice that for any $m\ge 1$ and any abelian groups $B,C$, we have $(B\oplus C)[m]=B[m]\oplus C[m]$ because $b\oplus c$ is annihilated by $m$ iff $b$ and $c$ both are. In addition, if $q$ is a prime prime not dividing a $m\ge 1$ and $e\ge 1$, we have
+    \[
+    \Z/q^e\Z [m]=0
+    \]
+    since every element of $\Z/q^e\Z$ has order dividing $q^e$, hence cannot also divide $m$ unless it's trivial since $\gcd(m,q^e)=1.$ Thus for any $e,j$,
+    \[
+    A[q_j^{e}] \cong (\bigoplus_{j} A_j)[q_j^e] \cong A_j[q_j^e] = \bigoplus_{p_i=q_j} (\Z/q_j^{e_i}\Z[q_j^e])
+    \]
+    hence
+    \[
+    \#A[q_j^e] = \prod_{p_i=q_j} q_j^{\min\{e, e_i\}}=q_j^{\sum \min\{e, e_i\}}.
+    \]
+    On the other hand, for $e\le f_j$, we have by hypothesis
+    \[
+    \#A[q_j^e]=q_j^{er}
+    \]
+    Putting these two together, we get that for any $e\le f_j$,
+    \[
+    \sum_{p_i = q_j} \min \{e, e_i\} = er.
+    \]
+    Letting $e=1$, we see that
+    \[
+    \#\{p_i=q_j\} = r.
+    \]
+    Now let $e_{(j)}=\min_{p_i =q_j} \{e_i\}$ and suppose for a contradiction that $e_{(j)}+1\le f_j.$ Then
+    \[
+    re_{(j)}+\#\{e_i>e_{(j)}\}=\#\{p_i=q_j\} e_{(j)}+\#\{e_i>e_{(j)}\}=\sum_{e_i = e_{(j)}} e_{(j)} + \sum_{e_i>e_{(j)}} (e_{(j)}+1) = (e_{(j)}+1)r.
+    \]
+    This shows
+    \[
+    r=\#\{e_i>e_{(j)}\} < \#\{p_i = q_j\} = r
+    \]
+    which is clearly impossible, so we get that $e_{(j)}\ge f_j.$ On the other hand, $e_{(j)}\le f_j$ since
+    \[
+    rf_j = \nu_{q_j}(\#A) = \sum_{p_i=q_j} e_i \ge \sum_{p_i = q_j} e_{(j)} = re_{(j)}
+    \]
+    with equality iff each $e_i =e_{(j)}$. This shows $e_{(j)}=f_j$, and moreover that each $e_i = e_{(j)}=f_j.$ Therefore
+    \[
+    A_j =\bigoplus_{p_i = q_j} \Z/q_j^{e_i}\Z = \left( \Z/q_j^{f_j}\Z \right)^r.
+    \]
+    Now
+    \[
+    A\cong \bigoplus_j A_j \cong \bigoplus_j \left( \Z/q_j^{f_j}\Z \right)^r \cong \left( \bigoplus_j \Z/q_j^{f_j}\Z\right)^r \cong (\Z/N\Z)^r
+    \]
+    
+\end{proof}
 \printbibliography
 
 \end{document}
